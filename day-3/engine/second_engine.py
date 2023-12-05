@@ -1,8 +1,8 @@
 from engine.engine import Engine
 
-class SecondEngine(Engine):
-    GEAR = '*'
+GEAR = '*'
 
+class SecondEngine(Engine):
     def __init__(self):
         super().__init__()
         self.gears = dict()
@@ -10,7 +10,9 @@ class SecondEngine(Engine):
     @staticmethod
     def create(input):
         engine = SecondEngine()
-        engine.process_schematic(input, [engine.SYMBOL, engine.GEAR], "[^0-9\.*]")
+        for line in input:
+            engine.schematic.append(line)
+        engine.process_schematic(GEAR)
         return engine
     
     def run(self):
@@ -25,11 +27,9 @@ class SecondEngine(Engine):
         return sum
 
     def add_symbol_and_continue(self, row, column):
-        self.symbols.add((row, column))
-        if self.schematic[row][column] == self.GEAR:
-            self.gears[(row, column)] = []
+        self.gears[(row, column)] = []
         return column + 1
-        
+
     def connect_to_gear(self, number):
         for row, column in number.get_adjacent_squares():
             if (row, column) in self.gears:

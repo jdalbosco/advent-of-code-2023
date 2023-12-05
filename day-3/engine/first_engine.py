@@ -1,10 +1,15 @@
+import re
 from engine.engine import Engine
+
+SYMBOL = '#'
 
 class FirstEngine(Engine):
     @staticmethod
     def create(input):
         engine = FirstEngine()
-        engine.process_schematic(input, [engine.SYMBOL], "[^0-9\.]")
+        for line in input:
+            engine.schematic.append(re.sub("[^0-9\.]", SYMBOL, line))
+        engine.process_schematic(SYMBOL)
         return engine
     
     def run(self):
