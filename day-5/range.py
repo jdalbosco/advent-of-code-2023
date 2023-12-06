@@ -8,6 +8,13 @@ class Range():
     def get_mapping(self, value) -> int:
         offset = value - self.src_start
         return self.dest_start + offset
+    
+    def get_reverse_mapping(self, value) -> int:
+        offset = value - self.dest_start
+        return self.src_start + offset
+    
+    def is_within_destination_range(self, value) -> bool:
+        return value >= self.dest_start and value <= self.dest_end
 
     def is_within_range(self, value) -> bool:
         return value >= self.src_start and value <= self.src_end

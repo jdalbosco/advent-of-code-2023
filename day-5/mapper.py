@@ -14,3 +14,9 @@ class Mapper():
             if range.is_within_range(value):
                 return range.get_mapping(value)
         return value
+
+    def get_reverse_mapping(self, value) -> int:
+        for range in self.ranges:
+            if range.is_within_destination_range(value):
+                return range.get_reverse_mapping(value)
+        return value
