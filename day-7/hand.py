@@ -1,6 +1,8 @@
 from type import Type
 
-CARD_RANKING = "23456789TJQKA"
+JOKER = "J"
+ALL_JOKERS = "JJJJJ"
+CARD_RANKING = "J23456789TJQKA"
 
 class Hand():
     def __init__(self, hand: str, bid: int):
@@ -20,13 +22,25 @@ class Hand():
             if card not in hand:
                 hand[card] = 0
             hand[card] += 1
-        
-        labels, amounts = len(hand), set(hand.values())
+            
+        labels, amounts = len(hand), sorted(hand.values())
+
+        if JOKER in hand:
+            if self.cards == ALL_JOKERS:
+                return Type.FIVE_OF_A_KIND
+            labels, amounts = self.deal_with_jokers(hand, labels, amounts)
 
         for type in Type:
             type_labels, type_amounts = type.value
             if type_labels == labels and type_amounts == amounts:
                 return type
+
+    def deal_with_jokers(self, hand, labels, amounts):
+        jokers = hand.pop(JOKER)
+        labels -= 1
+        amounts.remove(jokers)
+        amounts[-1] += jokers
+        return labels, amounts
 
     def is_higher_than(self, hand):
         for index in range(5):
