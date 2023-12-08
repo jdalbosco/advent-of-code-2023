@@ -31,8 +31,8 @@ def part_1(input_durations, input_distances):
     distances = [int(distance) for distance in input_distances.strip().split(' ') if distance != '']
 
     margin_of_error = 1
-    for race_number, distance in enumerate(distances):
-        race = Race(durations[race_number], distance)
+    for race_number in range(len(distances)):
+        race = Race(durations[race_number], distances[race_number])
         margin_of_error *= race.ways_to_beat()
 
     return margin_of_error
