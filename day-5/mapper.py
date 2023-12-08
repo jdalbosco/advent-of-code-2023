@@ -11,7 +11,7 @@ class Mapper():
 
     def get_mapping(self, value) -> int:
         for range in self.ranges:
-            if range.is_within_range(value):
+            if range.is_within_source_range(value):
                 return range.get_mapping(value)
         return value
 

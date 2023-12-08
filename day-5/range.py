@@ -16,5 +16,5 @@ class Range():
     def is_within_destination_range(self, value) -> bool:
         return value >= self.dest_start and value <= self.dest_end
 
-    def is_within_range(self, value) -> bool:
+    def is_within_source_range(self, value) -> bool:
         return value >= self.src_start and value <= self.src_end
