@@ -1,25 +1,18 @@
 from input_parser import InputParser
+from navigators.network_navigator import NetworkNavigator
+from navigators.ghost_network_navigator import GhostNetworkNavigator
 
-START = 'AAA'
-END = 'ZZZ'
-LEFT = 'L'
 
-def find_path(starting_point, ending_point, network, directions):
-    current_node = starting_point
-    dir_size = len(directions)
+def day_8_part_1(network, directions):
+    navigator = NetworkNavigator(network, directions)
+    print(navigator.calculate_number_of_steps())
 
-    steps = 0
-    while current_node != ending_point:
-        left, right = network[current_node]
-        current_node = left if directions[steps % dir_size] == LEFT else right
-        steps += 1
-    
-    return steps
-
-def day_8_part_1(input):
-    directions, network = InputParser.parse(input)
-    print(find_path(START, END, network, directions))
+def day_8_part_2(network, directions):
+    navigator = GhostNetworkNavigator(network, directions)
+    print(navigator.calculate_number_of_steps())
 
 if __name__ == "__main__":
-    day_8_part_1(open("inputs/day-8.txt", "r"))
+    directions, network = InputParser.parse(open("inputs/day-8.txt", "r"))
+    day_8_part_1(network, directions)
+    day_8_part_2(network, directions)
     
